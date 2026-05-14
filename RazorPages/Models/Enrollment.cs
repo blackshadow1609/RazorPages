@@ -12,7 +12,7 @@ namespace RazorPages.Models
         public Grade? Grade { get; set; }
 
         //Nav.prop.
-        public Course? Course { get; set; }
-        public Student? Student { get; set; }
+        public Course Course { get; set; }
+        public Student Student { get; set; }
     }
 }

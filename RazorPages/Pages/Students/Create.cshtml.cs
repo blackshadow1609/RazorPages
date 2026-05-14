@@ -10,35 +10,46 @@ using RazorPages.Models;
 
 namespace RazorPages.Pages.Students
 {
-    public class CreateModel : PageModel
-    {
-        private readonly RazorPages.Data.ContosoUniversityContext _context;
+	public class CreateModel : PageModel
+	{
+		private readonly RazorPages.Data.ContosoUniversityContext _context;
 
-        public CreateModel(RazorPages.Data.ContosoUniversityContext context)
-        {
-            _context = context;
-        }
+		public CreateModel(RazorPages.Data.ContosoUniversityContext context)
+		{
+			_context = context;
+		}
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+		public IActionResult OnGet()
+		{
+			return Page();
+		}
 
-        [BindProperty]
-        public Student Student { get; set; } = default!;
+		[BindProperty]
+		public Student Student { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+		// For more information, see https://aka.ms/RazorPagesCRUD.
+		public async Task<IActionResult> OnPostAsync()
+		{
+			RazorPages.Models.Student emptyStudent = new Student();
 
-            _context.Students.Add(Student);
-            await _context.SaveChangesAsync();
+			if (await TryUpdateModelAsync<Student>(emptyStudent, "student", s => s.FirstName, s => s.LastName, s => s.EnrollmentDate))
+			{
+				_context.Students.Add(emptyStudent);
+				await _context.SaveChangesAsync();
+				return RedirectToPage("./Details", new { id = emptyStudent.ID });
+				//return RedirectToPage($"./Details?id={emptyStudent.ID}");
+			}
+			return RedirectToPage("./Index");
 
-            return RedirectToPage("./Index");
-        }
-    }
+			//if (!ModelState.IsValid)
+			//{
+			//    return Page();
+			//}
+
+			//_context.Students.Add(Student);
+			//await _context.SaveChangesAsync();
+
+			//return RedirectToPage("./Index");
+		}
+	}
 }
