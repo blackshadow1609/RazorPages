@@ -19,7 +19,6 @@ namespace RazorPages.Pages.Students
 		{
 			_context = context;
 		}
-
 		public string NameSort { get; set; }
 		public string DateSort { get; set; }
 		public string CurrentFilter { get; set; }
@@ -32,7 +31,7 @@ namespace RazorPages.Pages.Students
 			DateSort = sortOrder == "Date" ? "date_desc" : "Date";
 			CurrentFilter = searchString;
 
-			IQueryable<Student> students = from studedent in _context.Students select studedent;
+			IQueryable<Student> students = from student in _context.Students select student;
 
 			if(!String.IsNullOrEmpty(CurrentFilter))
 			{
