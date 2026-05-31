@@ -25,18 +25,19 @@
             </p>
         </div>
     </form>
-    
+
 </div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">@Html.DisplayNameFor(model => model.Students[0].LastName)</a>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">@Html.DisplayNameFor(model => model.Students[0].FullName)</a>
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.Students[0].FirstName)
-            </th>
+            </th> *@
+
             <th>
                 <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" asp-route-currentFilter="@Model.CurrentFilter">@Html.DisplayNameFor(model => model.Students[0].EnrollmentDate)</a>
             </th>
@@ -48,11 +49,11 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
+                </td> *@
                 <td>
                     @Html.DisplayFor(modelItem => item.EnrollmentDate)
                 </td>
@@ -70,29 +71,29 @@
     string nextDisabled = Model.Students.HasNextPage ? "" : "disabled";
 }
 <form asp-page="./Index" method="get">
-<a asp-page="./Index"
-   asp-route-sortOrder="@Model.CurrentSort"
-   asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
-   asp-route-currentFilter="@Model.CurrentFilter"
-   asp-route-pageSize="@Model.PageSize"
-   class="btn btn-primary @prevDisabled">
-    Prev
-</a>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       asp-route-pageSize="@Model.PageSize"
+       class="btn btn-primary @prevDisabled">
+        Prev
+    </a>
 
-<a asp-page="./Index"
-   asp-route-sortOrder="@Model.CurrentSort"
-   asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
-   asp-route-currentFilter="@Model.CurrentFilter"
-   asp-route-pageSize="@Model.PageSize"
-   class="btn btn-primary @nextDisabled">
-    Next
-</a>
+    <a asp-page="./Index"
+       asp-route-sortOrder="@Model.CurrentSort"
+       asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
+       asp-route-currentFilter="@Model.CurrentFilter"
+       asp-route-pageSize="@Model.PageSize"
+       class="btn btn-primary @nextDisabled">
+        Next
+    </a>
 
     <select asp-for="PageSize" onchange="this.form.submit()">
-        <option value="3"   >3</option>
-        <option value="5"   >5</option>
-        <option value="8"   >8</option>
-        <option value="10"  >10</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
     </select>
 </form>
 
